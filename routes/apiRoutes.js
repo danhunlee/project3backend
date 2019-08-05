@@ -5,17 +5,40 @@
 // ===============================================================================
 
 var tableData = require("../data/tableData");
+var connection = require("../config/connection");
+const jwt = require("jsonwebtoken")
+const bcrypt = require("bcrypt")
+const saltRounds = 10;
 
 // ===============================================================================
 // ROUTING
 // ===============================================================================
 
 module.exports = function(app) {
+  
   // API GET Requests
   // Below code handles when users "visit" a page.
   // In each of the below cases when a user visits a link
   // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
   // ---------------------------------------------------------------------------
+
+  app.get("/createuser", function(req, res)
+  {
+    var hashpass = bcrypt.hashSync(req.body.password, saltRounds);
+    var queryString = `INSERT INTO user (username, password) VALUES (?, ?)`
+    connection.query(queryString,[req.body.username, hashpass], function(err, result)
+    {
+      if (err) {
+        throw err;
+      }
+      else{
+        return res.json();
+      }
+    })
+
+  //  "INSERT INTO loginUser ?, ?  Values ", req.username, hashpass;
+
+  });
 
   app.get("/api/tables", function(req, res) {
     res.json(tableData);
