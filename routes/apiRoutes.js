@@ -16,6 +16,9 @@ module.exports = function(app) {
   // In each of the below cases when a user visits a link
   // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
   // ---------------------------------------------------------------------------
+  // app.get("/", function(req, res) {
+  //   res.json(tableData);
+  // });
 
   app.get("/api/tables", function(req, res) {
     res.json(tableData);

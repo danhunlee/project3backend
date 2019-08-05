@@ -4,6 +4,7 @@
 // ==============================================================================
 
 var express = require("express");
+var mysql = require("mysql");
 
 // ==============================================================================
 // EXPRESS CONFIGURATION
@@ -14,7 +15,7 @@ var express = require("express");
 var app = express();
 
 // Sets an initial port. We"ll use this later in our listener
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 8081;
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
