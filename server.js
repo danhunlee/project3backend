@@ -10,6 +10,7 @@ var mysql = require("mysql");
 // EXPRESS CONFIGURATION
 // This sets up the basic properties for our express server
 // ==============================================================================
+var mysql = require("mysql");
 
 // Tells node that we are creating an "express" server
 var app = express();
