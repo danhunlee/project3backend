@@ -5,7 +5,7 @@
 // *** Dependencies
 // =============================================================
 var express = require("express");
-
+var cors = require("cors");
 // Sets up the Express App
 // =============================================================
 var app = express();
