@@ -99,43 +99,6 @@ module.exports = function(app) {
 
   });
 
-// let loginchecker = "SELECT * FROM user WHERE username= ?"
-    // connection.query(loginchecker, [req.body.username], function (err, result) {
-    //   if (err) throw err;
-    //   if (result.length > 0)//if we found results
-    //   {
-    //     //result returns array so loop
-    //     for (let i = 0; i < result.length; i++) {
-    //       bcrypt.compare(req.body.password, result[i].password, function (err, bres) {
-    //         if (bres) {//if account is found
-    //           const token = jwt.sign({
-    //             userId: result[i]._id
-    //             // username: result[i].username,
-    //           }, 'secret', { expiresIn: '1h' });
-    //           return res.json(token);
-    //         }
-    //         else {//if password does not match
-    //           console.log(bres);
-    //           console.log(result[i].password);
-  
-  
-    //           console.log("false");
-    //           return res.json(false);
-    //         }
-    //       });
-    //     }
-  
-    //   }
-    //   else
-    //   {
-    //     console.log(result)
-    //     console.log("nothingfound")
-    //     //found nothing in db and create account
-    //     return res.json(false);
-    //   }
-    // });
-
-
   app.delete("/api/users/:id", function(req, res) {
     db.User.destroy({
       where: {
