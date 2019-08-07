@@ -4,26 +4,13 @@
 // ==============================================================================
 
 var express = require("express");
-
+var cors = require('cors');
 // ==============================================================================
 // EXPRESS CONFIGURATION
 // This sets up the basic properties for our express server
 // ==============================================================================
 var mysql = require("mysql");
 
-// var connection = mysql.createConnection({
-//     host: "localhost",
-
-//     // Your port; if not 3306
-//     port: 3306,
-
-//     // Your username
-//     user: "root",
-
-//     // Your password
-//     password: "password",
-//     database: "bamazon_db"
-// });
 // Tells node that we are creating an "express" server
 var app = express();
 
@@ -33,6 +20,7 @@ var PORT = process.env.PORT || 8080;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors());
 
 // ================================================================================
 // ROUTER
