@@ -1,3 +1,6 @@
+const jwt = require("jsonwebtoken")
+const bcrypt = require("bcrypt")
+const saltRounds = 10;
 var db = require("../models");
 
 module.exports = function(app) {
@@ -26,10 +29,74 @@ module.exports = function(app) {
     });
   });
 
-  app.post("/api/users", function(req, res) {
-    db.User.create(req.body).then(function(dbUser) {
-      res.json(dbUser);
+  // app.post("/api/users", function(req, res) {
+  //   db.User.create(req.body).then(function(dbUser) {
+  //     res.json(dbUser);
+  //   });
+  // });
+
+  app.post("/api/createaccount", function(req, res) {
+    var hashpass = bcrypt.hashSync(req.body.password, saltRounds);
+    db.User.create(
+      {
+        userName: req.body.userName,
+        password: hashpass
+      }).then(function(dbUser) {
+        console.log(dbUser.id);
+      const token = jwt.sign({
+        userId: dbUser.id,
+      }, 'secret', { expiresIn: '1h' });
+
+        return res.json(token);
+    
     });
+  });
+
+  app.put("/api/login", function (req, res) {
+    
+    db.User.findAll({
+      where: {
+        userName: req.body.userName
+      }
+    }).then(function(dbUser) {
+      console.log(req.body.userName);
+
+      console.log(dbUser);
+        if (dbUser.length > 0)//if we found results
+      {
+        //result returns array so loop
+        for(let i = 0; i < dbUser.length; i++) {
+
+        
+          bcrypt.compare(req.body.password, dbUser[i].password, function (err, bres) {
+            if (bres) {//if account is found
+              const token = jwt.sign({
+                userId: dbUser[i].id
+                // username: result[i].username,
+              }, 'secret', { expiresIn: '1h' });
+              console.log("success");
+              return res.json(token);
+            }
+            else {//if password does not match
+              console.log(bres);
+              console.log(dbUser[i].password);
+  
+  
+              console.log("false");
+              return res.json(false);
+            }
+          });
+        }
+      }
+      else
+      {
+        console.log(dbUser)
+        console.log("nothingfound")
+        //found nothing in db and create account
+        res.json(false);
+      }
+    });
+
   });
 
   app.delete("/api/users/:id", function(req, res) {
