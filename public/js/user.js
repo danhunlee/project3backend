@@ -20,7 +20,7 @@ $(document).ready(function() {
     }
     // Calling the upsertUser function and passing in the value of the name input
     upsertUser({
-      name: nameInput
+      userName: nameInput
         .val()
         .trim()
     });
