@@ -12,10 +12,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // userName: {
-    //   type: DataTypes.STRING,
-    //   // allowNull: false,
-    // }
     });
 
   User.associate = function(models) {
