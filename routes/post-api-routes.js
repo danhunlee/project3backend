@@ -47,7 +47,7 @@ module.exports = function(app) {
   // POST route for saving a new gameEvent
   app.post("/api/gameEvents", function(req, res) {
     db.Post.create(req.body).then(function(dbPost) {
-      dbPost.addUser();
+      // dbPost.addUser();
       res.json(dbPost);
     });
   });
