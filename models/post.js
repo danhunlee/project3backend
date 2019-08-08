@@ -11,6 +11,26 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false,
       len: [1]
+    },
+    geoLocation: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      len: [1]
+    },
+    maxOfPlayers: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      len: [1]
+    },
+    picture: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      len: [1]
+    },
+    phone: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      len: [1]
     }
   });
 
