@@ -27,8 +27,12 @@ $(document).ready(function() {
   }
 
   // A function for creating an user. Calls getUsers upon completion
-  function upsertUser(userData) {
-    $.post("/api/users", userData)
+  function upsertUser(userName, password) {
+    $.post("/api/createaccount", 
+    {
+      userName: "userName", 
+      password: "password"
+    })
       .then(getUsers);
   }
 
@@ -36,7 +40,7 @@ $(document).ready(function() {
   function createUserRow(userData) {
     var newTr = $("<tr>");
     newTr.data("user", userData);
-    newTr.append("<td>" + userData.name + "</td>");
+    newTr.append("<td>" + userData.userName + "</td>");
     if (userData.GameEvents) {
       newTr.append("<td> " + userData.GameEvents.length + "</td>");
     } else {
