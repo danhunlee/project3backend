@@ -23,7 +23,7 @@ module.exports = function(app) {
     // In this case, just db.User
     db.Event.findAll({
       where: query,
-      include: [db.User]
+      include: [db.User, db.Games]
     }).then(function(dbEvent) {
       res.json(dbEvent);
     });
@@ -48,7 +48,8 @@ module.exports = function(app) {
   app.post("/api/gameEvents", function(req, res) {
     db.Event.create(req.body)
     .then(function(dbEvent) {
-      // if (req.body.UserId) {
+        dbEvent.addUser(req.body.UserId);
+        dbEvent.addGames(req.body.GamesId);
         // var user = db.User.findOne(
         //   { 
         //     where: {
