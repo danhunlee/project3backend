@@ -48,18 +48,18 @@ module.exports = function(app) {
   app.post("/api/gameEvents", function(req, res) {
     db.Event.create(req.body)
     .then(function(dbEvent) {
-      if (req.body.UserId) {
-        var user = db.User.findOne(
-          { 
-            where: {
-              id: req.body.UserId
-            }
-          });
-        return user.addEvent(dbEvent);
-      }
-    }).then(function(dbRes) {
-      res.json(dbRes);
-    });
+      // if (req.body.UserId) {
+        // var user = db.User.findOne(
+        //   { 
+        //     where: {
+        //       id: req.body.UserId
+        //     }
+        //   });
+        // return user.addEvent(dbEvent);
+        res.json(dbEvent);
+      });
+    // }).then(function(dbRes) {
+    // });
   });
 
   // DELETE route for deleting gameEvents
