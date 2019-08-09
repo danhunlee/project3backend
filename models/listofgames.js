@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
     var ListOfGames = sequelize.define("ListOfGames", {
-      gameTitle: {
+      gameName: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
