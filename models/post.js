@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       len: [1]
     },
-    maxOfPlayers: {
+    capacity: {
       type: DataTypes.INTEGER,
       allowNull: false,
       len: [1]
@@ -26,11 +26,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       len: [1]
-    },
-    UserId: {
-      type: DataTypes.INTEGER,
-      // allowNull: false,
-
     }
   });
 
@@ -38,9 +33,8 @@ module.exports = function(sequelize, DataTypes) {
     // We're saying that a Post should belong to an User
     // A Post can't be created without an User due to the foreign key constraint
     Post.belongsTo(models.User, {
-      foreignKey: {
-        // allowNull: false
-      }
+      foreignKey: "userName",
+      targetKey: "userName",
     });
   };
 

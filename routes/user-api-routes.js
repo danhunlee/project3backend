@@ -30,13 +30,7 @@ module.exports = function(app) {
   });
 
   // app.post("/api/users", function(req, res) {
-  //   db.User.create(
-  //     {
-  //       userName: req.body.userName,
-  //       password: req.body.password
-  //     }
-  //   ).then(function(dbUser) {
-  //     dbUser.addPost()
+  //   db.User.create(req.body).then(function(dbUser) {
   //     res.json(dbUser);
   //   });
   // });
@@ -48,12 +42,12 @@ module.exports = function(app) {
         userName: req.body.userName,
         password: hashpass
       }).then(function(dbUser) {
+        
         console.log(dbUser.id);
       const token = jwt.sign({
         userId: dbUser.id,
       }, 'secret', { expiresIn: '1h' });
-
-        return res.json(token);
+         res.json(token);
     
     });
   });
