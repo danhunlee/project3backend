@@ -30,7 +30,13 @@ module.exports = function(app) {
   });
 
   // app.post("/api/users", function(req, res) {
-  //   db.User.create(req.body).then(function(dbUser) {
+  //   db.User.create(
+  //     {
+  //       userName: req.body.userName,
+  //       password: req.body.password
+  //     }
+  //   ).then(function(dbUser) {
+  //     dbUser.addPost()
   //     res.json(dbUser);
   //   });
   // });
