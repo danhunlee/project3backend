@@ -42,12 +42,12 @@ module.exports = function(app) {
         userName: req.body.userName,
         password: hashpass
       }).then(function(dbUser) {
+        
         console.log(dbUser.id);
       const token = jwt.sign({
         userId: dbUser.id,
       }, 'secret', { expiresIn: '1h' });
-
-        return res.json(token);
+         res.json(token);
     
     });
   });
@@ -99,6 +99,7 @@ module.exports = function(app) {
 
   });
 
+<<<<<<< HEAD
 // let loginchecker = "SELECT * FROM user WHERE username= ?"
     // connection.query(loginchecker, [req.body.username], function (err, result) {
     //   if (err) throw err;
@@ -136,6 +137,8 @@ module.exports = function(app) {
     // });
 
 
+=======
+>>>>>>> hunsbackend
   app.delete("/api/users/:id", function(req, res) {
     db.User.destroy({
       where: {

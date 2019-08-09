@@ -5,7 +5,7 @@
 // *** Dependencies
 // =============================================================
 var express = require("express");
-
+var cors = require("cors");
 // Sets up the Express App
 // =============================================================
 var app = express();
@@ -17,7 +17,7 @@ var db = require("./models");
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(cors());
 // Static directory
 app.use(express.static("public"));
 
@@ -26,6 +26,8 @@ app.use(express.static("public"));
 require("./routes/html-routes.js")(app);
 require("./routes/user-api-routes.js")(app);
 require("./routes/post-api-routes.js")(app);
+require("./routes/listofgames-api-routes")(app);
+
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
