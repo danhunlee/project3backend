@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    var ListOfGames = sequelize.define("ListOfGames", {
+    var Games = sequelize.define("Games", {
       gameName: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -29,15 +29,12 @@ module.exports = function(sequelize, DataTypes) {
       }
     });
   
-    ListOfGames.associate = function(models) {
+    Games.associate = function(models) {
       // We're saying that a Post should belong to an User
       // A Post can't be created without an User due to the foreign key constraint
-      ListOfGames.belongsTo(models.User, {
-        foreignKey: {
-          allowNull: true
-        }
-      });
+      Games.belongsToMany(models.Event, { through: "GamesEvent" });
+
     };
   
-    return ListOfGames;
+    return Games;a
   };

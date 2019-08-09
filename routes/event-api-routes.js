@@ -21,11 +21,11 @@ module.exports = function(app) {
     // Here we add an "include" property to our options in our findAll query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.User
-    db.Post.findAll({
+    db.Event.findAll({
       where: query,
       include: [db.User]
-    }).then(function(dbPost) {
-      res.json(dbPost);
+    }).then(function(dbEvent) {
+      res.json(dbEvent);
     });
   });
 
@@ -34,44 +34,53 @@ module.exports = function(app) {
     // Here we add an "include" property to our options in our findOne query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.User
-    db.Post.findOne({
+    db.Event.findOne({
       where: {
         id: req.params.id
       },
       include: [db.User]
-    }).then(function(dbPost) {
-      res.json(dbPost);
+    }).then(function(dbEvent) {
+      res.json(dbEvent);
     });
   });
 
   // POST route for saving a new gameEvent
   app.post("/api/gameEvents", function(req, res) {
-    db.Post.create(req.body).then(function(dbPost) {
-      res.json(dbPost);
+    db.Event.create(req.body)
+    .then(function(dbEvent) {
+      if (req.body.UserId) {
+        var user = db.User.findOne(
+          { 
+            where: {
+              id: req.body.UserId
+            }
+          });
+        return user.addEvent(dbEvent);
+      }
+    }).then(function(dbRes) {
+      res.json(dbRes);
     });
   });
 
   // DELETE route for deleting gameEvents
   app.delete("/api/gameEvents/:id", function(req, res) {
-    db.Post.destroy({
+    db.Event.destroy({
       where: {
         id: req.params.id
       }
-    }).then(function(dbPost) {
-      res.json(dbPost);
+    }).then(function(dbEvent) {
+      res.json(dbEvent);
     });
   });
 
   // PUT route for updating gameEvents
   app.put("/api/gameEvents", function(req, res) {
-    db.Post.update(
+    db.Event.update(
       req.body,
       {
         where: {
           id: req.body.id
         }
-      }).then(function(dbPost) {
-      res.json(dbPost);
-    });
+      });
   });
 };

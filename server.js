@@ -25,8 +25,8 @@ app.use(express.static("public"));
 // =============================================================
 require("./routes/html-routes.js")(app);
 require("./routes/user-api-routes.js")(app);
-require("./routes/post-api-routes.js")(app);
-require("./routes/listofgames-api-routes")(app);
+require("./routes/event-api-routes.js")(app);
+require("./routes/games-api-routes")(app);
 
 
 // Syncing our sequelize models and then starting our Express app
@@ -36,3 +36,13 @@ db.sequelize.sync({ force: true }).then(function() {
     console.log("App listening on PORT " + PORT);
   });
 });
+// db.sequelize.query('INSERT INTO Event (eventTitle, description, location, capacity, phone) VALUES("play Catan", "sadfadsfas", "bellevue",5,1341341)');
+
+// db.sequelize.sync({ force: true })
+// .then(function() {
+//   return db.sequelize.query('INSERT INTO Event (eventTitle, description, location, capacity, phone) VALUES("play Catan", "sadfadsfas", "bellevue",5,1341341)');
+// }).then(function() {
+//   app.listen(PORT, function() {
+//     console.log("App listening on PORT " + PORT);
+//   });
+// });
