@@ -35,7 +35,7 @@ module.exports = function(app) {
   //   });
   // });
 
-  app.post("/api/createaccount", function(req, res) {
+  app.post("/api/users", function(req, res) {
     var hashpass = bcrypt.hashSync(req.body.password, saltRounds);
     db.User.create(
       {
