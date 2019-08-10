@@ -7,6 +7,7 @@
 
 // Requiring our models
 var db = require("../models");
+const jwt = require("jsonwebtoken")
 
 // Routes
 // =============================================================
@@ -46,7 +47,10 @@ module.exports = function(app) {
 
   // POST route for saving a new gameEvent
   app.post("/api/gameEvents", function(req, res) {
-    db.Event.create(req.body)
+    var eventObj = req.body;
+    eventObj.owner = jwt.decode(req.body.token).userId;
+    console.log(eventObj);
+    db.Event.create(eventObj)
     .then(function(dbEvent) {
         dbEvent.addUser(req.body.UserId);
         dbEvent.addGames(req.body.GamesId);
@@ -75,4 +79,25 @@ module.exports = function(app) {
         }
       });
   });
+
+  app.get("/api/gameEvents/host/:token", function(req, res) {
+    var query = {};
+    var token = req.params.token;
+    var ownId = jwt.decode(token).userId
+    console.log("owner id is: ", ownId);
+    if (userId) {
+      query.owner = ownId;
+    }
+    // Here we add an "include" property to our options in our findAll query
+    // We set the value to an array of the models we want to include in a left outer join
+    // In this case, just db.User
+    db.Event.findAll({
+      where: query,
+      include: [db.User, db.Games]
+    }).then(function(dbEvent) {
+      console.log(dbEvent);
+      res.json(dbEvent);
+    });
+  });
+
 };

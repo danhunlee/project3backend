@@ -38,9 +38,13 @@ module.exports = function(sequelize, DataTypes) {
       len: [1]
     },
     time: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       len: [1]
+    },
+    owner: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   });
 
