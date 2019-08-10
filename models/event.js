@@ -26,6 +26,21 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       len: [1]
+    },
+    date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      len: [1]
+    },
+    specificLocation: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      len: [1]
+    },
+    time: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      len: [1]
     }
   });
 

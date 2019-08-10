@@ -50,17 +50,8 @@ module.exports = function(app) {
     .then(function(dbEvent) {
         dbEvent.addUser(req.body.UserId);
         dbEvent.addGames(req.body.GamesId);
-        // var user = db.User.findOne(
-        //   { 
-        //     where: {
-        //       id: req.body.UserId
-        //     }
-        //   });
-        // return user.addEvent(dbEvent);
         res.json(dbEvent);
-      });
-    // }).then(function(dbRes) {
-    // });
+    });
   });
 
   // DELETE route for deleting gameEvents

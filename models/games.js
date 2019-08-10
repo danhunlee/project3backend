@@ -36,5 +36,5 @@ module.exports = function(sequelize, DataTypes) {
 
     };
   
-    return Games;a
+    return Games;
   };
