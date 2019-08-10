@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Post = sequelize.define("Post", {
+  var Event = sequelize.define("Event", {
     eventTitle: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -26,17 +26,31 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       len: [1]
+    },
+    date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      len: [1]
+    },
+    specificLocation: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      len: [1]
+    },
+    time: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      len: [1]
     }
   });
 
-  Post.associate = function(models) {
+  Event.associate = function(models) {
     // We're saying that a Post should belong to an User
     // A Post can't be created without an User due to the foreign key constraint
-    Post.belongsTo(models.User, {
-      foreignKey: "userName",
-      targetKey: "userName",
-    });
+    Event.belongsToMany(models.Games, { through: "GamesEvent" });
+    Event.belongsToMany(models.User, { through: "UserEvent" });
+
   };
 
-  return Post;
+  return Event;
 };
