@@ -29,6 +29,15 @@ module.exports = function(app) {
     });
   });
 
+  // GET route for getting all of the GameEvents
+  // FROM AARON
+  // app.get("/api/gameEvents", function(req, res) {
+  //   db.Event.findAll().then(function(dbEvent) {
+  //     console.log("events")
+  //     res.json(dbEvent);
+  //   });
+  // });
+
   // Get route for retrieving a single gameEvent
   app.get("/api/gameEvents/:id", function(req, res) {
     // Here we add an "include" property to our options in our findOne query

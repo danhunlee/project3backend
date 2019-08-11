@@ -7,6 +7,11 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
+    gameName: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      len: [1]
+    },
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -17,30 +22,23 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       len: [1]
     },
-    capacity: {
+    maxPlayers: {
       type: DataTypes.INTEGER,
       allowNull: false,
       len: [1]
     },
-    phone: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      len: [1]
-    },
-    date: {
+    dateTime: {
       type: DataTypes.DATE,
       allowNull: false,
       len: [1]
     },
-    specificLocation: {
+    gpsLocation: {
       type: DataTypes.STRING,
-      allowNull: false,
-      len: [1]
+      allowNull: true,
     },
-    time: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      len: [1]
+    enrolledPlayers: {
+      type: DataTypes.STRING,
+      allowNull: true,
     }
   });
 
