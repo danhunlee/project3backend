@@ -49,10 +49,18 @@ module.exports = function(app) {
     db.Event.create(req.body)
     .then(function(dbEvent) {
         dbEvent.addUser(req.body.UserId);
-        dbEvent.addGames(req.body.GamesId);
+        dbEvent.addGames(req.body.EventId);
         res.json(dbEvent);
     });
   });
+  // app.post("/api/gameEvents/join", function(req, res) {
+  //   db.Event.create(req.body)
+  //   .then(function(dbEvent) {
+  //       dbEvent.addUser(req.body.UserId);
+  //       // dbEvent.addGames(req.body.GamesId);
+  //       res.json(dbEvent);
+  //   });
+  // });
 
   // DELETE route for deleting gameEvents
   app.delete("/api/gameEvents/:id", function(req, res) {

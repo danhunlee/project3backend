@@ -23,19 +23,23 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       },
-      include: [db.Post]
+      include: [db.Event]
     }).then(function(dbUser) {
+      dbUser.addEvent(req.body.EventId);
+      dbUser.addUser(req.body.UserId);
       res.json(dbUser);
     });
   });
 
-  // app.post("/api/users", function(req, res) {
-  //   db.User.create(req.body).then(function(dbUser) {
+  // app.post("/api/users/join", function(req, res) {
+  //   db.User.create(req.body.UserId).then(function(dbUser) {
+  //     dbEvent.addUser(req.body.UserId);
   //     res.json(dbUser);
   //   });
+
   // });
 
-  app.post("/api/users", function(req, res) {
+  app.post("/api/createaccount", function(req, res) {
     var hashpass = bcrypt.hashSync(req.body.password, saltRounds);
     db.User.create(
       {
