@@ -49,7 +49,10 @@ module.exports = function(sequelize, DataTypes) {
     // A Post can't be created without an User due to the foreign key constraint
     Event.belongsToMany(models.Games, { through: "GamesEvent" });
     Event.belongsToMany(models.User, { through: "UserEvent" });
-
+    Event.belongsTo(models.JoinedEvent, {
+      foreignKey: 'eventId',
+      constraints: false,
+    });
   };
 
   return Event;

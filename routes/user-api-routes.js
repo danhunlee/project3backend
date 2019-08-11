@@ -34,6 +34,44 @@ module.exports = function(app) {
   //     res.json(dbUser);
   //   });
   // });
+  app.post("/api/users/join/:token/:id", function(req, res)
+  {
+    //parse token to get id
+    var decoded = jwt.verify(req.params.token, 'secret');
+    db.JoinedEvent.create({
+      eventId: req.params.id,
+      userId: decoded.userId
+    })
+    .then(function(dbPopulateEvent)
+    {
+
+      res.json(dbPopulateEvent);
+    });
+
+    // db.User.
+    // db.UserEvent.create(
+    // {     
+    //   EventId: req.body.id,
+    //   UserId: req.params.token
+
+    // });
+
+    // db.
+    // db.UserEvent.create(
+    //  {
+    //   EventId: req.body.id,
+    //   UserId: req.params.token
+    //   } 
+    // ).then(function(dbUser) {
+        
+    //   console.log(dbUser);
+    // const token = jwt.sign({
+    //   userId: dbUser.id,
+    // }, 'secret', { expiresIn: '1h' });
+    //    res.json(token);
+  
+    // });s
+  });
 
   app.post("/api/users", function(req, res) {
     var hashpass = bcrypt.hashSync(req.body.password, saltRounds);
