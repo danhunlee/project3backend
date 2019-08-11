@@ -94,7 +94,7 @@ module.exports = function(app) {
     });
   });
 
-  app.put("/api/login", function (req, res) {
+  app.post("/api/login", function (req, res) {
     
     db.User.findAll({
       where: {
