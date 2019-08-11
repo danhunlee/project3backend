@@ -18,7 +18,10 @@ module.exports = function(sequelize, DataTypes) {
     // Associating User with Posts
     // When an User is deleted, also delete any associated Posts
     User.belongsToMany(models.Event, {
-      through: "UserEvent",
+      through: "userEvent",
+      as: "users",
+      foreignKey: "userId",
+      otherKey: "eventId",
       onDelete: "cascade"
     });
   };
