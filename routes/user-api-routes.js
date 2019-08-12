@@ -94,11 +94,11 @@ module.exports = function(app) {
     });
   });
 
-  app.post("/api/login", function (req, res) {
+  app.put("/api/login", function (req, res) {
     
     db.User.findAll({
       where: {
-        userName: req.body.userName
+        userName: req.body.userName,
       }
     }).then(function(dbUser) {
       console.log(req.body.userName);
