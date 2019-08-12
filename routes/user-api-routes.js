@@ -51,30 +51,6 @@ module.exports = function(app) {
 
       res.json(dbPopulateEvent);
     });
-
-    // db.User.
-    // db.UserEvent.create(
-    // {     
-    //   EventId: req.body.id,
-    //   UserId: req.params.token
-
-    // });
-
-    // db.
-    // db.UserEvent.create(
-    //  {
-    //   EventId: req.body.id,
-    //   UserId: req.params.token
-    //   } 
-    // ).then(function(dbUser) {
-        
-    //   console.log(dbUser);
-    // const token = jwt.sign({
-    //   userId: dbUser.id,
-    // }, 'secret', { expiresIn: '1h' });
-    //    res.json(token);
-  
-    // });s
   });
 
   app.post("/api/createaccount", function(req, res) {
@@ -97,7 +73,7 @@ module.exports = function(app) {
   app.post("/api/login", function (req, res) {
     db.User.findAll({
       where: {
-        userName: req.body.userName
+        userName: req.body.userName,
       }
     }).then(function(dbUser) {
       console.log(req.body.userName);

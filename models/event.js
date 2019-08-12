@@ -28,15 +28,11 @@ module.exports = function(sequelize, DataTypes) {
       len: [1]
     },
     dateTime: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: false,
       len: [1]
     },
     gpsLocation: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    enrolledPlayers: {
       type: DataTypes.STRING,
       allowNull: true,
     }
