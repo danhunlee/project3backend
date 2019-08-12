@@ -7,6 +7,11 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
+    gameName: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      len: [1]
+    },
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -17,34 +22,23 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       len: [1]
     },
-    capacity: {
+    maxPlayers: {
       type: DataTypes.INTEGER,
       allowNull: false,
       len: [1]
     },
-    phone: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      len: [1]
-    },
-    date: {
+    dateTime: {
       type: DataTypes.DATE,
       allowNull: false,
       len: [1]
     },
-    specificLocation: {
+    gpsLocation: {
       type: DataTypes.STRING,
-      allowNull: false,
-      len: [1]
+      allowNull: true,
     },
-    time: {
+    enrolledPlayers: {
       type: DataTypes.STRING,
-      allowNull: false,
-      len: [1]
-    },
-    owner: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true,
     }
   });
 
@@ -53,7 +47,10 @@ module.exports = function(sequelize, DataTypes) {
     // A Post can't be created without an User due to the foreign key constraint
     Event.belongsToMany(models.Games, { through: "GamesEvent" });
     Event.belongsToMany(models.User, { through: "UserEvent" });
-
+    Event.belongsTo(models.JoinedEvent, {
+      foreignKey: 'eventId',
+      constraints: false,
+    });
   };
 
   return Event;

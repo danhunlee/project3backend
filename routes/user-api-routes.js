@@ -23,17 +23,59 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       },
-      include: [db.Post]
+      include: [db.Event]
     }).then(function(dbUser) {
+      dbUser.addEvent(req.body.EventId);
+      dbUser.addUser(req.body.UserId);
       res.json(dbUser);
     });
   });
 
-  // app.post("/api/users", function(req, res) {
-  //   db.User.create(req.body).then(function(dbUser) {
+  // app.post("/api/users/join", function(req, res) {
+  //   db.User.create(req.body.UserId).then(function(dbUser) {
+  //     dbEvent.addUser(req.body.UserId);
   //     res.json(dbUser);
   //   });
+
   // });
+  app.post("/api/users/join/:token/:id", function(req, res)
+  {
+    //parse token to get id
+    var decoded = jwt.verify(req.params.token, 'secret');
+    db.JoinedEvent.create({
+      eventId: req.params.id,
+      userId: decoded.userId
+    })
+    .then(function(dbPopulateEvent)
+    {
+
+      res.json(dbPopulateEvent);
+    });
+
+    // db.User.
+    // db.UserEvent.create(
+    // {     
+    //   EventId: req.body.id,
+    //   UserId: req.params.token
+
+    // });
+
+    // db.
+    // db.UserEvent.create(
+    //  {
+    //   EventId: req.body.id,
+    //   UserId: req.params.token
+    //   } 
+    // ).then(function(dbUser) {
+        
+    //   console.log(dbUser);
+    // const token = jwt.sign({
+    //   userId: dbUser.id,
+    // }, 'secret', { expiresIn: '1h' });
+    //    res.json(token);
+  
+    // });s
+  });
 
   app.post("/api/createaccount", function(req, res) {
     var hashpass = bcrypt.hashSync(req.body.password, saltRounds);
@@ -52,8 +94,7 @@ module.exports = function(app) {
     });
   });
 
-  app.put("/api/login", function (req, res) {
-    
+  app.post("/api/login", function (req, res) {
     db.User.findAll({
       where: {
         userName: req.body.userName

@@ -16,6 +16,7 @@ module.exports = function(app) {
   // GET route for getting all of the GameEvents
   app.get("/api/gameEvents", function(req, res) {
     var query = {};
+    console.log(req.body);
     if (req.query.user_id) {
       query.UserId = req.query.user_id;
     }
@@ -29,6 +30,15 @@ module.exports = function(app) {
       res.json(dbEvent);
     });
   });
+
+  // GET route for getting all of the GameEvents
+  // FROM AARON
+  // app.get("/api/gameEvents", function(req, res) {
+  //   db.Event.findAll().then(function(dbEvent) {
+  //     console.log("events")
+  //     res.json(dbEvent);
+  //   });
+  // });
 
   // Get route for retrieving a single gameEvent
   app.get("/api/gameEvents/:id", function(req, res) {
@@ -53,10 +63,18 @@ module.exports = function(app) {
     db.Event.create(eventObj)
     .then(function(dbEvent) {
         dbEvent.addUser(req.body.UserId);
-        dbEvent.addGames(req.body.GamesId);
+        dbEvent.addGames(req.body.EventId);
         res.json(dbEvent);
     });
   });
+  // app.post("/api/gameEvents/join", function(req, res) {
+  //   db.Event.create(req.body)
+  //   .then(function(dbEvent) {
+  //       dbEvent.addUser(req.body.UserId);
+  //       // dbEvent.addGames(req.body.GamesId);
+  //       res.json(dbEvent);
+  //   });
+  // });
 
   // DELETE route for deleting gameEvents
   app.delete("/api/gameEvents/:id", function(req, res) {
@@ -78,26 +96,6 @@ module.exports = function(app) {
           id: req.body.id
         }
       });
-  });
-
-  app.get("/api/gameEvents/host/:token", function(req, res) {
-    var query = {};
-    var token = req.params.token;
-    var ownId = jwt.decode(token).userId
-    console.log("owner id is: ", ownId);
-    if (userId) {
-      query.owner = ownId;
-    }
-    // Here we add an "include" property to our options in our findAll query
-    // We set the value to an array of the models we want to include in a left outer join
-    // In this case, just db.User
-    db.Event.findAll({
-      where: query,
-      include: [db.User, db.Games]
-    }).then(function(dbEvent) {
-      console.log(dbEvent);
-      res.json(dbEvent);
-    });
   });
 
 };

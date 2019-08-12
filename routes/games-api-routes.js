@@ -13,26 +13,31 @@ var db = require("../models");
 module.exports = function(app) {
 
   // POST route for saving a new listofgames
-  app.post("/api/games", function(req, res) {
+  app.post("/api/saveGame", function(req, res) {
     db.Games.create(req.body).then(function(dbGames) {
         res.json(dbGames);
     });
   });
 
   // GET route for querying games
-  app.get("/api/games", function(req, res) {
-    var query = {};
-    if (req.query.gameName) {
-      query.gameName = req.query.gameName;
-    }
-
-    db.Games.findAll({
-      where: query,
-    }).then(function(dbGames) {
+  app.get("/api/getGames", function(req, res) {
+  console.log("games")
+    db.Games.findAll().then(function(dbGames) {
         res.json(dbGames);
     });
   });
   
+    // DELETE route for deleting gameEvents
+    app.delete("/api/deleteGame/:id", function(req, res) {
+      db.Games.destroy({
+        where: {
+          id: req.params.id
+        }
+      }).then(function(dbGames) {
+        res.json(dbGames);
+      });
+    });
+
   // GET route for getting games by id
   app.get("/api/games/:id", function(req, res) {  
     db.Games.findOne({
