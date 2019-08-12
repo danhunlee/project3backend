@@ -34,6 +34,8 @@ app.use(function(req, res, next) {
 require("./routes/event-api-routes.js")(app);
 require("./routes/games-api-routes")(app);
 require("./routes/user-api-routes.js")(app);
+require("./routes/scrape-api-routes.js")(app);
+
 
 
 // Syncing our sequelize models and then starting our Express app
