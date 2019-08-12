@@ -58,7 +58,13 @@ module.exports = function(app) {
     db.User.create(
       {
         userName: req.body.userName,
-        password: hashpass
+        password: hashpass,
+        realName: req.body.realName,
+        userGender: req.body.userGender,
+        userIntro: req.body.userIntro,
+        favoriteGames: req.body.favoriteGames,
+        userImage: req.body.userImage
+
       }).then(function(dbUser) {
         
         console.log(dbUser.id);
