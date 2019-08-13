@@ -169,6 +169,8 @@ module.exports = function(app) {
           where: {
             id: req.params.id
           }
+        }).then(function(dbUser) {
+          res.json(dbUser);
         });
     });
 
