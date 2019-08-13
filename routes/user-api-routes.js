@@ -38,19 +38,47 @@ module.exports = function(app) {
   //   });
 
   // });
+  app.get("/api/users/join/:id", function(req, res)
+  {
+    db.JoinedEvent.findAll({
+      where: {
+        eventId: req.params.id
+      }
+    }).then(function(dbUser)
+    {
+      return res.json(dbUser);
+    });
+  });
+ 
   app.post("/api/users/join/:token/:id", function(req, res)
   {
     //parse token to get id
     var decoded = jwt.verify(req.params.token, 'secret');
-    db.JoinedEvent.create({
-      eventId: req.params.id,
-      userId: decoded.userId
-    })
-    .then(function(dbPopulateEvent)
+    //check if we have already joined
+    db.JoinedEvent.findOne({
+      where: {
+        userId: decoded.userId
+      }
+    }).then(function(dbUser)
     {
+      if(dbUser)//if user found
+      {
+        return false;
+      }
+      else
+      {
+        db.JoinedEvent.create({
+          eventId: req.params.id,
+          userId: decoded.userId
+        })
+        .then(function(dbPopulateEvent)
+        {
+    
+          res.json(dbPopulateEvent);
+        });
+      }
+    })
 
-      res.json(dbPopulateEvent);
-    });
   });
 
   app.post("/api/createaccount", function(req, res) {
@@ -70,7 +98,7 @@ module.exports = function(app) {
         console.log(dbUser.id);
       const token = jwt.sign({
         userId: dbUser.id,
-      }, 'secret', { expiresIn: '1h' });
+      }, 'secret', { expiresIn: '24h' });
          res.json(token);
     
     });
