@@ -14,17 +14,17 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
     }
     });
-  User.associate = function(models) {
-    // Associating User with Posts
-    // When an User is deleted, also delete any associated Posts
-    User.belongsToMany(models.Event, {
-      through: "userEvent",
-      as: "users",
-      foreignKey: "userId",
-      otherKey: "eventId",
-      onDelete: "cascade"
-    });
-  };
+  // User.associate = function(models) {
+  //   // Associating User with Posts
+  //   // When an User is deleted, also delete any associated Posts
+  //   User.belongsToMany(models.Event, {
+  //     through: "userEvent",
+  //     as: "users",
+  //     foreignKey: "userId",
+  //     otherKey: "eventId",
+  //     onDelete: "cascade"
+  //   });
+  // };
 
   return User;
 };

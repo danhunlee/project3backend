@@ -1,10 +1,10 @@
 {
   "development": {
     "username": "root",
-    "password": "dlgjs123!",
+    "password": "password",
     "database": "boardGame_DB",
     "host": "127.0.0.1",
-    "port": 3306,
+    "port": 8080,
     "dialect": "mysql"
   },
   "test": {
