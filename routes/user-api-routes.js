@@ -163,11 +163,13 @@ module.exports = function(app) {
 
     // PUT route for updating userProfile
     app.put("/api/updateProfile/:id", function(req, res) {
+      var decoded = jwt.verify(req.params.id, 'secret');
+
       db.User.update(
         req.body,
         {
           where: {
-            id: req.params.id
+            id: decoded.userId
           }
         }).then(function(dbUser) {
           res.json(dbUser);
@@ -179,9 +181,10 @@ module.exports = function(app) {
     // Here we add an "include" property to our options in our findOne query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.User
+    var decoded = jwt.verify(req.params.id, 'secret');
     db.User.findOne({
       where: {
-        id: req.params.id
+        id: decoded.userId
       },
       // include: [db.User]
     }).then(function(dbUser) {
