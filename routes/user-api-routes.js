@@ -31,13 +31,19 @@ module.exports = function(app) {
     });
   });
 
-  // app.post("/api/users/join", function(req, res) {
-  //   db.User.create(req.body.UserId).then(function(dbUser) {
-  //     dbEvent.addUser(req.body.UserId);
-  //     res.json(dbUser);
-  //   });
+  //find all joined users
+  app.get("/api/joinedUser/:id", function(req, res) {
+    db.JoinedEvent.findAll({
+      where:
+      {
+        eventId: req.params.id
+      },
+      include: [db.User]
+    }).then(function(dbEvents) {
+      res.json(dbEvents)
 
-  // });
+    })
+})
   app.get("/api/users/join/:id", function(req, res)
   {
     db.JoinedEvent.findAll({
@@ -57,7 +63,8 @@ module.exports = function(app) {
     //check if we have already joined
     db.JoinedEvent.findOne({
       where: {
-        userId: decoded.userId
+        userId: decoded.userId,
+        eventId: req.params.id
       }
     }).then(function(dbUser)
     {

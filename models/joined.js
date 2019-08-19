@@ -11,7 +11,17 @@ module.exports = function(sequelize, DataTypes) {
 
     });
   
-    // joinedEvent.associate = function(models) {
+    joinedEvent.associate = function(models) {
+        joinedEvent.belongsTo(models.User, {
+            foreignKey: 'userId',
+            constraints: false,
+          });
+          joinedEvent.belongsTo(models.Event, {
+            foreignKey: 'eventId',
+            constraints: false,
+          });
+  };
+
     //   // We're saying that a Post should belong to an User
     //   // A Post can't be created without an User due to the foreign key constraint
     //   joinedEvent.belongsToMany(models.Event, { through: "GamesEvent" });
@@ -20,4 +30,5 @@ module.exports = function(sequelize, DataTypes) {
     // };
   
     return joinedEvent;
-  };
+
+};

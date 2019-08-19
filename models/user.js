@@ -40,10 +40,7 @@ module.exports = function(sequelize, DataTypes) {
       onDelete: "cascade"
     });
 
-    User.belongsTo(models.JoinedEvent, {
-      foreignKey: 'userId',
-      constraints: false,
-    });
+  
   };
 
   return User;

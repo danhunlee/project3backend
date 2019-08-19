@@ -29,6 +29,8 @@ module.exports = function(app) {
     });
   });
 
+
+
   // GET route for getting all of the GameEvents
   // FROM AARON
   // app.get("/api/gameEvents", function(req, res) {
@@ -45,7 +47,7 @@ module.exports = function(app) {
     // In this case, just db.User
     db.Event.findOne({
       where: {
-        id: req.params.id
+        id: req.params.id,
       },
       include: [db.User]
     }).then(function(dbEvent) {
